@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scientific Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="calculator">
+      <h1 style="color: aliceblue">vip</h1>
+      <div class="display">
+        <input type="text" id="display" placeholder="0" readonly />
+      </div>
+      <div class="buttons">
+        <!-- Row 1 -->
+        <button onclick="addFunc('sin(')">sin</button>
+        <button onclick="addFunc('cos(')">cos</button>
+        <button onclick="addFunc('tan(')">tan</button>
+        <button onclick="addFunc('Math.sqrt(')">√</button>
+        <button onclick="addFunc('**')">^</button>
+
+        <!-- Row 2 -->
+        <button onclick="addFunc('Math.log(')">ln</button>
+        <button onclick="addFunc('Math.log10(')">log</button>
+        <button onclick="addFunc('(')">(</button>
+        <button onclick="addFunc(')')">)</button>
+        <button onclick="clearDisplay()">C</button>
+
+        <!-- Row 3 -->
+        <button onclick="addNum('7')">7</button>
+        <button onclick="addNum('8')">8</button>
+        <button onclick="addNum('9')">9</button>
+        <button onclick="addFunc('/')">/</button>
+        <button onclick="addFunc('%')">%</button>
+
+        <!-- Row 4 -->
+        <button onclick="addNum('4')">4</button>
+        <button onclick="addNum('5')">5</button>
+        <button onclick="addNum('6')">6</button>
+        <button onclick="addFunc('*')">*</button>
+        <button onclick="addFunc('1/')">1/x</button>
+
+        <!-- Row 5 -->
+        <button onclick="addNum('1')">1</button>
+        <button onclick="addNum('2')">2</button>
+        <button onclick="addNum('3')">3</button>
+        <button onclick="addFunc('-')">-</button>
+        <button onclick="addFunc('!')">!</button>
+
+        <!-- Row 6 -->
+        <button onclick="addNum('0')">0</button>
+        <button onclick="addFunc('.')">.</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="addFunc('+')">+</button>
+        <button onclick="addFunc('Math.PI')">π</button>
+      </div>
+    </div>
+
+    <script>
+      const display = document.getElementById("display");
+
+      function addNum(num) {
+        display.value += num;
+      }
+
+      function addFunc(func) {
+        display.value += func;
+      }
+
+      function clearDisplay() {
+        display.value = "";
+      }
+
+      function calculate() {
+        try {
+          // Evaluate the expression in the display
+          display.value = eval(display.value);
+        } catch (e) {
+          display.value = "Error";
+        }
+      }
+    </script>
+  </body>
+</html>

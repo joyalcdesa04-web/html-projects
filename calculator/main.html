@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="calc" role="application" aria-label="Colorful calculator">
+      <div class="brand">
+        <div class="logo">C</div>
+        <h1>Calculator</h1>
+      </div>
+
+      <div class="display" id="display">
+        <div class="small" id="history"></div>
+        <div id="output">0</div>
+      </div>
+
+      <div class="keys">
+        <button class="btn-clr" data-action="clear">C</button>
+        <button class="btn-clr" data-action="back">⌫</button>
+        <button class="btn-op" data-value="%">%</button>
+        <button class="btn-op" data-value="/">÷</button>
+
+        <button class="btn-num" data-value="7">7</button>
+        <button class="btn-num" data-value="8">8</button>
+        <button class="btn-num" data-value="9">9</button>
+        <button class="btn-op" data-value="*">×</button>
+
+        <button class="btn-num" data-value="4">4</button>
+        <button class="btn-num" data-value="5">5</button>
+        <button class="btn-num" data-value="6">6</button>
+        <button class="btn-op" data-value="-">−</button>
+
+        <button class="btn-num" data-value="1">1</button>
+        <button class="btn-num" data-value="2">2</button>
+        <button class="btn-num" data-value="3">3</button>
+        <button class="btn-op" data-value="+">+</button>
+
+        <button class="btn-num span-2" data-value="0">0</button>
+        <button class="btn-num" data-value=".">.</button>
+        <button class="btn-eq" data-action="equals">=</button>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const output = document.getElementById("output");
+        const history = document.getElementById("history");
+        let expr = "";
+
+        function update() {
+          output.textContent = expr === "" ? "0" : expr;
+        }
+
+        function append(v) {
+          if (expr === "0" && v === "0") return;
+          if (v === ".") {
+            const parts = expr.split(/[+\-*/%]/);
+            const last = parts[parts.length - 1];
+            if (last.includes(".")) return;
+          }
+          expr += v;
+          update();
+        }
+
+        function back() {
+          expr = expr.slice(0, -1);
+          update();
+        }
+
+        function clearAll() {
+          expr = "";
+          update();
+          history.textContent = "";
+        }
+
+        function compute() {
+          if (!expr) return;
+          let safe = expr
+            .replace(/×/g, "*")
+            .replace(/÷/g, "/")
+            .replace(/−/g, "-");
+          safe = safe.replace(/(\d+(?:\.\d+)?)%/g, "($1/100)");
+
+          try {
+            const result = Function("return (" + safe + ")")();
+            history.textContent = expr + " =";
+            expr = String(result);
+            update();
+          } catch (e) {
+            output.textContent = "Error";
+          }
+        }
+
+        document.querySelectorAll("[data-value]").forEach((btn) => {
+          btn.addEventListener("click", () => append(btn.dataset.value));
+        });
+        document.querySelectorAll("[data-action]").forEach((btn) => {
+          const a = btn.dataset.action;
+          if (a === "clear") btn.addEventListener("click", clearAll);
+          if (a === "back") btn.addEventListener("click", back);
+          if (a === "equals") btn.addEventListener("click", compute);
+        });
+
+        window.addEventListener("keydown", (e) => {
+          if (e.key >= "0" && e.key <= "9") append(e.key);
+          else if (e.key === ".") append(".");
+          else if (e.key === "Enter") {
+            e.preventDefault();
+            compute();
+          } else if (e.key === "Backspace") back();
+          else if (["+", "-", "*", "/", "%"].includes(e.key)) append(e.key);
+        });
+
+        update();
+      })();
+    </script>
+  </body>
+</html>

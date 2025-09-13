@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>VIP Hotel Menu</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="logo">VIP</div>
+      <nav>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#menu">Menu</a></li>
+          <li><a href="#order">Order</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h1>Welcome to VIP Hotel</h1>
+        <p>Experience the best flavors and dishes. Order your favorites now!</p>
+        <a href="#menu" class="btn">View Menu</a>
+      </div>
+    </section>
+
+    <!-- Featured Items Section -->
+    <section class="featured">
+      <h2>Popular Items</h2>
+      <div class="featured-items">
+        <div class="featured-item">
+          <img src="/imges/pizza.jpg" alt="Pizza" />
+          <h3>Pizza</h3>
+        </div>
+        <div class="featured-item">
+          <img src="imges/buger.jpg" alt="Burger" />
+          <h3>Burger</h3>
+        </div>
+        <div class="featured-item">
+          <img src="imges/pasta.jpg" alt="Pasta" />
+          <h3>Pasta</h3>
+        </div>
+        <div class="featured-item">
+          <img src="imges/ice cream.jpg" alt="Ice Cream" />
+          <h3>Ice Cream</h3>
+        </div>
+        <div class="featured-item">
+          <img src="imges/coke.jpeg" alt="Coke" />
+          <h3>Coke</h3>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu" id="menu">
+      <h2>Our Menu</h2>
+      <div class="menu-items">
+        <!-- Pizza -->
+        <div class="item">
+          <h3>Pizza</h3>
+          <p>₹250</p>
+          <div class="quantity">
+            <label>Qty:</label>
+            <input type="number" min="0" max="5" value="0" />
+          </div>
+        </div>
+
+        <!-- Burger -->
+        <div class="item">
+          <h3>Burger</h3>
+          <p>₹150</p>
+          <div class="quantity">
+            <label>Qty:</label>
+            <input type="number" min="0" max="5" value="0" />
+          </div>
+        </div>
+
+        <!-- Pasta -->
+        <div class="item">
+          <h3>Pasta</h3>
+          <p>₹200</p>
+          <div class="quantity">
+            <label>Qty:</label>
+            <input type="number" min="0" max="5" value="0" />
+          </div>
+        </div>
+
+        <!-- Coke -->
+        <div class="item">
+          <h3>Coke</h3>
+          <p>₹50</p>
+          <div class="quantity">
+            <label>Qty:</label>
+            <input type="number" min="0" max="5" value="0" />
+          </div>
+        </div>
+
+        <!-- Ice Cream -->
+        <div class="item">
+          <h3>Ice Cream</h3>
+          <p>₹100</p>
+          <div class="quantity">
+            <label>Qty:</label>
+            <input type="number" min="0" max="5" value="0" />
+          </div>
+        </div>
+      </div>
+
+      <div class="order-btn">
+        <button>Order Now</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="order">
+      <p>&copy; 2025 VIP Hotel. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
