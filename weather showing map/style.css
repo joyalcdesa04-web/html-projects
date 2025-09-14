@@ -1,0 +1,287 @@
+:root {
+  --bg-day-1: #8fd3f4;
+  --bg-day-2: #84fab0;
+  --bg-night-1: #0f2027;
+  --bg-night-2: #203a43;
+  --card-day: rgba(255, 255, 255, 0.85);
+  --card-night: rgba(10, 10, 20, 0.6);
+  --accent: #ffd166;
+  --muted: #6b6b6b;
+  --glass: rgba(255, 255, 255, 0.08);
+  --radius: 14px;
+}
+
+/* Page + background */
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
+  margin: 0;
+  padding: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, var(--bg-day-1), var(--bg-day-2));
+  transition: background 400ms ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Mode toggle (hidden checkbox) */
+.mode-toggle {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+}
+.mode-label {
+  position: fixed;
+  right: 28px;
+  top: 28px;
+  width: 64px;
+  height: 36px;
+  background: var(--glass);
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px;
+  gap: 6px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  color: #fff;
+  z-index: 20;
+}
+.mode-label .sun {
+  font-size: 18px;
+}
+.mode-label .moon {
+  font-size: 18px;
+  opacity: 0.6;
+}
+
+/* Main card */
+.weather-app {
+  width: 360px;
+  max-width: 94vw;
+  background: var(--card-day);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 30px rgba(20, 20, 40, 0.25);
+  padding: 18px;
+  color: #111;
+  transition: background 300ms ease, color 300ms ease;
+  backdrop-filter: blur(6px);
+}
+
+/* Top section */
+.top {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: space-between;
+}
+.city h1 {
+  font-size: 20px;
+  margin: 0;
+}
+.city .date {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.current {
+  text-align: center;
+  min-width: 110px;
+}
+.current .icon {
+  font-size: 40px;
+}
+.current .temp {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  margin-top: 6px;
+}
+.current .temp .value {
+  font-size: 32px;
+  font-weight: 700;
+}
+.current .temp .unit {
+  font-size: 14px;
+  color: var(--muted);
+}
+.current .condition {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* Details grid */
+.details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+.detail {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.9),
+    rgba(255, 255, 255, 0.82)
+  );
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.04);
+}
+.detail .label {
+  font-size: 12px;
+  color: var(--muted);
+}
+.detail .value {
+  font-weight: 600;
+  margin-top: 6px;
+}
+
+/* Hourly */
+.hourly {
+  margin-top: 14px;
+}
+.hourly h2 {
+  font-size: 14px;
+  margin: 0 0 8px 0;
+  color: var(--muted);
+}
+.hourly-strip {
+  display: flex;
+  gap: 10px;
+  overflow: auto;
+  padding-bottom: 6px;
+}
+.hour {
+  min-width: 64px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 10px;
+  padding: 8px;
+  text-align: center;
+}
+.hour .time {
+  font-size: 12px;
+  color: var(--muted);
+}
+.hour .h-icon {
+  font-size: 18px;
+  margin-top: 6px;
+}
+.hour .h-temp {
+  font-weight: 700;
+  margin-top: 6px;
+}
+
+/* Forecast */
+.forecast {
+  margin-top: 12px;
+}
+.forecast h2 {
+  font-size: 14px;
+  margin: 0 0 8px 0;
+  color: var(--muted);
+}
+.forecast-grid {
+  display: flex;
+  gap: 10px;
+}
+.day-card {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.93);
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+}
+.day-card .dow {
+  font-weight: 600;
+}
+.day-card .f-icon {
+  font-size: 18px;
+  margin: 8px 0;
+}
+.day-card .f-temp {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Footer */
+.attribution {
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 12px;
+}
+
+/* Night mode styles when checkbox is checked */
+.mode-toggle:checked ~ .weather-app,
+.mode-toggle:checked ~ .weather-app * {
+  /* force repaint ordering */
+}
+.mode-toggle:checked ~ body {
+  /* not used since body is before input - use :root override below */
+}
+
+/* using sibling combinator: input is before body, so target via :checked + body > .weather-app? Keep structure where input is before main so we can use ~ */
+.mode-toggle:checked ~ .weather-app {
+  background: linear-gradient(135deg, var(--card-night), rgba(10, 10, 25, 0.2));
+  color: #f3f7ff;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+}
+.mode-toggle:checked ~ .weather-app .detail,
+.mode-toggle:checked ~ .weather-app .hour,
+.mode-toggle:checked ~ .weather-app .day-card {
+  background: rgba(255, 255, 255, 0.04);
+  color: #e6eef9;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+.mode-toggle:checked ~ .weather-app .current .condition,
+.mode-toggle:checked ~ .weather-app .city .date,
+.mode-toggle:checked ~ .weather-app .attribution,
+.mode-toggle:checked ~ .weather-app .hour .time,
+.mode-toggle:checked ~ .weather-app .day-card .f-temp {
+  color: #b9c6d6;
+}
+
+/* change page bg gradient based on toggle */
+.mode-toggle:checked ~ body {
+  background: linear-gradient(135deg, var(--bg-night-1), var(--bg-night-2));
+}
+/* Move the toggle visuals when checked */
+.mode-toggle:checked ~ .mode-label {
+  background: rgba(255, 255, 255, 0.06);
+}
+.mode-toggle:checked ~ .mode-label .sun {
+  opacity: 0.4;
+}
+.mode-toggle:checked ~ .mode-label .moon {
+  opacity: 1;
+  color: #ffd166;
+}
+
+/* Small responsive tweaks */
+@media (max-width: 420px) {
+  .weather-app {
+    padding: 14px;
+  }
+  .current .temp .value {
+    font-size: 28px;
+  }
+  .top {
+    gap: 10px;
+  }
+  .hour {
+    min-width: 56px;
+  }
+}

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="game-container">
+      <h1>🎮 Tic Tac Toe 🕹️</h1>
+
+      <!-- Status Box -->
+      <div class="status-box" id="statusBox">❌ Player X's turn</div>
+
+      <!-- Scoreboard -->
+      <div class="scoreboard">
+        <p>❌ X Wins: <span id="xWins">0</span></p>
+        <p>⭕ O Wins: <span id="oWins">0</span></p>
+        <p>🤝 Draws: <span id="draws">0</span></p>
+      </div>
+
+      <!-- Board -->
+      <div class="board" id="board">
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <div class="cell" data-cell></div>
+        <!-- Winning Line -->
+        <div class="winning-line" id="winningLine"></div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="buttons">
+        <button id="restartBtn">🔄 Restart</button>
+        <button id="newGameBtn">🆕 New Game</button>
+      </div>
+    </div>
+
+    <script>
+      const statusBox = document.getElementById("statusBox");
+      const restartBtn = document.getElementById("restartBtn");
+      const newGameBtn = document.getElementById("newGameBtn");
+      const winningLine = document.getElementById("winningLine");
+
+      // Scoreboard elements
+      const xWinsDisplay = document.getElementById("xWins");
+      const oWinsDisplay = document.getElementById("oWins");
+      const drawsDisplay = document.getElementById("draws");
+
+      let cells;
+      let xTurn = true;
+      let running = true;
+      let xWins = 0,
+        oWins = 0,
+        draws = 0;
+
+      const WINNING_COMBINATIONS = [
+        [0, 1, 2, "row1"],
+        [3, 4, 5, "row2"],
+        [6, 7, 8, "row3"], // rows
+        [0, 3, 6, "col1"],
+        [1, 4, 7, "col2"],
+        [2, 5, 8, "col3"], // cols
+        [0, 4, 8, "diag1"],
+        [2, 4, 6, "diag2"], // diagonals
+      ];
+
+      function startGame() {
+        xTurn = true;
+        running = true;
+        winningLine.className = "winning-line"; // reset line
+        statusBox.textContent = "❌ Player X's turn";
+
+        // Reset cells
+        const board = document.getElementById("board");
+        board.querySelectorAll(".cell").forEach((cell) => {
+          cell.textContent = "";
+          cell.classList.remove("x", "o");
+        });
+
+        // Refresh cell references and events
+        cells = document.querySelectorAll("[data-cell]");
+        cells.forEach((cell) => {
+          cell.replaceWith(cell.cloneNode()); // clean slate
+        });
+        cells = document.querySelectorAll("[data-cell]");
+        cells.forEach((cell) => {
+          cell.addEventListener("click", handleClick, { once: true });
+        });
+      }
+
+      function handleClick(e) {
+        if (!running) return;
+        const cell = e.target;
+        const currentClass = xTurn ? "x" : "o";
+        const symbol = xTurn ? "❌" : "⭕";
+        cell.textContent = symbol;
+        cell.classList.add(currentClass);
+
+        if (checkWin(currentClass)) {
+          running = false;
+          if (xTurn) {
+            xWins++;
+            xWinsDisplay.textContent = xWins;
+            statusBox.textContent = "🏆 Player X Wins! ⭕ loses 🤡😭";
+          } else {
+            oWins++;
+            oWinsDisplay.textContent = oWins;
+            statusBox.textContent = "🏆 Player O Wins! ❌ loses 😂😢";
+          }
+        } else if (isDraw()) {
+          running = false;
+          draws++;
+          drawsDisplay.textContent = draws;
+          statusBox.textContent = "🤝 It's a Draw! 😅😎";
+        } else {
+          xTurn = !xTurn;
+          statusBox.textContent = xTurn
+            ? "❌ Player X's turn"
+            : "⭕ Player O's turn";
+        }
+      }
+
+      function checkWin(currentClass) {
+        for (let combo of WINNING_COMBINATIONS) {
+          if (
+            combo
+              .slice(0, 3)
+              .every((i) => cells[i].classList.contains(currentClass))
+          ) {
+            showWinningLine(combo[3]);
+            return true;
+          }
+        }
+        return false;
+      }
+
+      function isDraw() {
+        return [...cells].every(
+          (cell) => cell.classList.contains("x") || cell.classList.contains("o")
+        );
+      }
+
+      function showWinningLine(position) {
+        winningLine.classList.add(position);
+      }
+
+      restartBtn.addEventListener("click", startGame);
+      newGameBtn.addEventListener("click", () => {
+        xWins = 0;
+        oWins = 0;
+        draws = 0;
+        xWinsDisplay.textContent = 0;
+        oWinsDisplay.textContent = 0;
+        drawsDisplay.textContent = 0;
+        startGame();
+      });
+
+      startGame();
+    </script>
+  </body>
+</html>

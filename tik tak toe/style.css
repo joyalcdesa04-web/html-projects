@@ -1,0 +1,159 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: url("https://wallpapercave.com/wp/wp2757874.gif") no-repeat center
+    center fixed;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: white;
+}
+
+.game-container {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 15px;
+  text-align: center;
+  width: 380px;
+  box-shadow: 0 0 20px #00ffcc, 0 0 40px #ff0099;
+}
+
+h1 {
+  margin-bottom: 15px;
+  color: #00ffcc;
+  text-shadow: 0 0 10px #ff0099;
+}
+
+.status-box {
+  margin: 15px 0;
+  padding: 10px;
+  border: 2px solid #00ffcc;
+  border-radius: 10px;
+  font-size: 1.2rem;
+}
+
+.board {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  gap: 5px;
+  justify-content: center;
+  margin: 20px auto;
+}
+
+.cell {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid #00ffcc;
+  border-radius: 10px;
+  font-size: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.cell:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.cell.x {
+  color: #ff4444;
+  text-shadow: 0 0 10px #ff0000;
+}
+.cell.o {
+  color: #00ffcc;
+  text-shadow: 0 0 10px #00ffff;
+}
+
+/* Winning line */
+.winning-line {
+  position: absolute;
+  width: 0;
+  height: 5px;
+  background: yellow;
+  box-shadow: 0 0 10px yellow;
+  transform-origin: center;
+  transition: all 0.3s ease;
+}
+.winning-line.row1 {
+  top: 50px;
+  left: 10px;
+  width: 300px;
+}
+.winning-line.row2 {
+  top: 155px;
+  left: 10px;
+  width: 300px;
+}
+.winning-line.row3 {
+  top: 260px;
+  left: 10px;
+  width: 300px;
+}
+
+.winning-line.col1 {
+  top: 10px;
+  left: 50px;
+  height: 300px;
+  width: 5px;
+}
+.winning-line.col2 {
+  top: 10px;
+  left: 155px;
+  height: 300px;
+  width: 5px;
+}
+.winning-line.col3 {
+  top: 10px;
+  left: 260px;
+  height: 300px;
+  width: 5px;
+}
+
+.winning-line.diag1 {
+  top: 155px;
+  left: 10px;
+  width: 400px;
+  height: 5px;
+  transform: rotate(45deg);
+}
+.winning-line.diag2 {
+  top: 155px;
+  left: -60px;
+  width: 400px;
+  height: 5px;
+  transform: rotate(-45deg);
+}
+
+/* Buttons */
+button {
+  margin: 5px;
+  padding: 8px 18px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px #fff;
+}
+
+#restartBtn {
+  background: #ff0099;
+  color: white;
+}
+#newGameBtn {
+  background: #ffaa00;
+  color: black;
+}
